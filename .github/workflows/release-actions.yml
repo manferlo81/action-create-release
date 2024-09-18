@@ -1,0 +1,30 @@
+name: Release action
+
+on:
+  push:
+    tags:
+        - 'v*'
+
+  workflow_dispatch:
+    inputs:
+      tag-name:
+        description: Release tag name
+        required: true
+
+jobs:
+  job_create_release:
+    name: Create GitHub Release
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        uses: ./
+        with:
+          tag-name: ${{ github.event_name != 'workflow_dispatch' && github.ref_name || inputs.tag-name }}

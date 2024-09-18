@@ -1,0 +1,29 @@
+name: Create GitHub Release
+description: A composite action to create a GitHub release
+
+branding:
+  icon: arrow-up-circle
+  color: purple
+
+author: Manuel Fernández
+
+inputs:
+  tag-name:
+    description: Tag name
+    required: false
+    default: ${{ github.ref_name }}
+
+  latest:
+    description: Whether or not to make this the latest release
+    required: false
+    default: "true"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        generate_release_notes: true
+        make_latest: ${{ inputs.latest != 'false' }}
+        name: ${{ inputs.tag-name }}
