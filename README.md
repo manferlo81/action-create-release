@@ -16,7 +16,7 @@ steps:
   - name: Create a GitHub release
     uses: manferlo81/action-create-release@v0
     with:
-      tag_name: v1.2.3
+      tag-name: v1.2.3
       latest: false
 ```
 
