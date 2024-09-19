@@ -23,7 +23,12 @@ jobs:
 
   update_latest:
     name: Update Latest Tag
+
     needs: create_release
+
+    permissions:
+      contents: write
+
     uses: ./.github/workflows/update-latest.yml
     with:
       user-name: manferlo81
