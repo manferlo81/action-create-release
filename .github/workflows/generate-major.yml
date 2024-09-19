@@ -1,0 +1,48 @@
+name: Generate Major Version
+
+on:
+  workflow_call:
+    inputs:
+      tag-name:
+        description: Input tag name
+        type: string
+        required: true
+
+    outputs:
+      major-tag:
+        description: Major tag name
+        value: ${{ jobs.generate_major_tag.outputs.MAJOR_TAG }}
+
+  workflow_dispatch:
+    inputs:
+      tag-name:
+        description: Input tag name
+        type: string
+        required: true
+
+jobs:
+  generate_major_tag:
+    name: Generate Major Tag
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      MAJOR_TAG: ${{ steps.generate-tag.outputs.MAJOR_TAG }}
+
+    steps:
+      - name: Setup NodeJS 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Generate Major Tag
+        id: generate-tag
+        run: node -e "console.log('MAJOR_TAG='+'$TAG_NAME'.split('.')[0])" >> "$GITHUB_OUTPUT"
+        env:
+          TAG_NAME: ${{ inputs.tag-name }}
+
+      - name: Show Major Tag
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "MAJOR_TAG=$MAJOR_TAG"
+        env:
+          MAJOR_TAG: ${{ steps.generate-tag.outputs.MAJOR_TAG }}
