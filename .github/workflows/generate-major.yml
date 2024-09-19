@@ -6,7 +6,8 @@ on:
       tag-name:
         description: Input tag name
         type: string
-        required: true
+        required: false
+        default: ${{ github.ref_name }}
 
     outputs:
       major-tag:

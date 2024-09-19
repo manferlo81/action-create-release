@@ -21,39 +21,10 @@ jobs:
       - name: Create GitHub Release
         uses: ./
 
-  generate_major_tag:
-    name: Generate Major Tag
-    uses: ./.github/workflows/generate-major.yml
-    with:
-      tag-name: ${{ github.ref_name }}
-
   update_latest:
     name: Update Latest Tag
-
-    runs-on: ubuntu-latest
-    needs:
-      - create_release
-      - generate_major_tag
-
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Config Git
-        run: |
-          git config user.name "$USER_NAME"
-          git config user.email "$EMAIL"
-        env:
-          USER_NAME: manferlo81
-          EMAIL: manferlo81@gmail.com
-
-      - name: Update Major Tag
-        run: git tag $MAJOR_TAG -f
-        env:
-          MAJOR_TAG: ${{ needs.generate_major_tag.outputs.major-tag }}
-
-      - name: Push Tags
-        run: git push --tags -f
+    needs: create_release
+    uses: ./.github/workflows/update-latest.yml
+    with:
+      user-name: manferlo81
+      email: manferlo81@gmail.com
