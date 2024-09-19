@@ -2,6 +2,8 @@
 
 A composite action to create a GitHub release
 
+This is a fairly simplified wrapper around [softprops/action-gh-release](https://github.com/marketplace/actions/gh-release).
+
 ## Index
 
 * [Usage](#usage)
