@@ -12,16 +12,23 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Config Git
         run: |
-          git config user.name "manferlo81"
-          git config user.email "manferlo81@gmail.com"
+          git config user.name "${{ env.USER_NAME }}"
+          git config user.email "${{ env.EMAIL }}"
+        env:
+          USER_NAME: manferlo81
+          EMAIL: manferlo81@gmail.com
 
       - name: Update Major Tag
-        run: |
-          git tag ${{ env.tag }} -f
-          git push --tags -f
+        run: git tag ${{ env.tag }} -f
+
+      - name: Push Tags
+        run: git push --tags -f
