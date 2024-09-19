@@ -1,27 +1,18 @@
-name: Release action
+name: Create GitHub Release
 
 on:
   push:
     tags:
         - 'v*'
 
-  workflow_dispatch:
-    inputs:
-      tag-name:
-        description: Release tag name
-        required: true
-
 jobs:
-  job_create_release:
+  create_release:
     name: Create GitHub Release
 
     runs-on: ubuntu-latest
 
     permissions:
       contents: write
-
-    env:
-      TAG_NAME: ${{ github.event_name != 'workflow_dispatch' && github.ref_name || inputs.tag-name }}
 
     steps:
       - name: Checkout
@@ -30,5 +21,4 @@ jobs:
       - name: Create GitHub Release
         uses: ./
         with:
-          tag-name: ${{ env.TAG_NAME }}
-          latest: ${{ contains(env.TAG_NAME, '.') }}
+          latest: ${{ contains(github.ref_name, '.') }}

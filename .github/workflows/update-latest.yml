@@ -1,0 +1,27 @@
+name: Update Major Version (v0)
+
+on:
+  workflow_dispatch:
+
+env:
+  tag: v0
+
+jobs:
+  update_major_version:
+    name: Update Major Version
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Config Git
+        run: |
+          git config user.name "manferlo81"
+          git config user.email "manferlo81@gmail.com"
+
+      - name: Update Major Tag
+        run: |
+          git tag ${{ env.tag }} -f
+          git push --tags -f
