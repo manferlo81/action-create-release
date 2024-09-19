@@ -31,7 +31,9 @@ jobs:
     name: Update Latest Tag
 
     runs-on: ubuntu-latest
-    needs: generate_major_tag
+    needs:
+      - create_release
+      - generate_major_tag
 
     permissions:
       contents: write
