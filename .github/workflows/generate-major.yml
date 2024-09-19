@@ -13,13 +13,6 @@ on:
         description: Major tag name
         value: ${{ jobs.generate_major_tag.outputs.MAJOR_TAG }}
 
-  workflow_dispatch:
-    inputs:
-      tag-name:
-        description: Input tag name
-        type: string
-        required: true
-
 jobs:
   generate_major_tag:
     name: Generate Major Tag
@@ -42,7 +35,6 @@ jobs:
           TAG_NAME: ${{ inputs.tag-name }}
 
       - name: Show Major Tag
-        if: github.event_name == 'workflow_dispatch'
         run: echo "MAJOR_TAG=$MAJOR_TAG"
         env:
           MAJOR_TAG: ${{ steps.generate-tag.outputs.MAJOR_TAG }}
