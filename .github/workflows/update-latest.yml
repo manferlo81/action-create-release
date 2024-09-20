@@ -27,6 +27,9 @@ jobs:
       contents: write
       actions: read
 
+    env:
+      MAJOR_TAG: ${{ needs.generate_major_tag.outputs.major-tag }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,9 +43,7 @@ jobs:
           EMAIL: ${{ inputs.email }}
 
       - name: Update Major Tag
-        run: git tag $MAJOR_TAG -f
-        env:
-          MAJOR_TAG: ${{ needs.generate_major_tag.outputs.major-tag }}
+        run: git tag -f $MAJOR_TAG ${{ github.ref_name }}
 
       - name: Push Tags
-        run: git push --tags -f
+        run: git push origin $MAJOR_TAG -f

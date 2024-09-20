@@ -32,5 +32,5 @@ jobs:
 
     uses: ./.github/workflows/update-latest.yml
     with:
-      user-name: manferlo81
+      user-name: Manuel Fernández using GitHub Actions
       email: manferlo81@gmail.com
