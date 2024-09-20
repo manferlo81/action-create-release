@@ -44,7 +44,7 @@ runs:
       with:
         generate_release_notes: true
         make_latest: ${{ inputs.latest != 'false' }}
-        name: ${{ inputs.tag-name }}
+        tag_name: ${{ inputs.tag-name }}
 ```
 
 ## Inputs
