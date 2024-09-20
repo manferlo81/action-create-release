@@ -25,7 +25,7 @@ jobs:
 
     permissions:
       contents: write
-      actions: read
+      actions: write
 
     env:
       MAJOR_TAG: ${{ needs.generate_major_tag.outputs.major-tag }}

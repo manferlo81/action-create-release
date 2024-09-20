@@ -28,7 +28,7 @@ jobs:
 
     permissions:
       contents: write
-      actions: read
+      actions: write
 
     uses: ./.github/workflows/update-latest.yml
     with:
